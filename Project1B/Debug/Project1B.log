@@ -1,18 +1,11 @@
 ﻿  Main.cpp
 C:\Users\shawn\Desktop\Summer Classes 2020\303 Data Structure\Project 1\303_Project1B\Project1B\Main.cpp(3,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-C:\Users\shawn\Desktop\Summer Classes 2020\303 Data Structure\Project 1\303_Project1B\Project1B\StringTokenizer.h(35,19): error C3646: 'next_token': unknown override specifier
-C:\Users\shawn\Desktop\Summer Classes 2020\303 Data Structure\Project 1\303_Project1B\Project1B\StringTokenizer.h(35,19): error C2059: syntax error: '('
-C:\Users\shawn\Desktop\Summer Classes 2020\303 Data Structure\Project 1\303_Project1B\Project1B\StringTokenizer.h(35,22): error C2334: unexpected token(s) preceding '{'; skipping apparent function body
-C:\Users\shawn\Desktop\Summer Classes 2020\303 Data Structure\Project 1\303_Project1B\Project1B\StringTokenizer.h(53,34): error C4596: 'find_next': illegal qualified name in member declaration
-C:\Users\shawn\Desktop\Summer Classes 2020\303 Data Structure\Project 1\303_Project1B\Project1B\Date.h(65,1): error C2039: 'next_token': is not a member of 'String_Tokenizer'
-C:\Users\shawn\Desktop\Summer Classes 2020\303 Data Structure\Project 1\303_Project1B\Project1B\StringTokenizer.h(11): message : see declaration of 'String_Tokenizer'
-C:\Users\shawn\Desktop\Summer Classes 2020\303 Data Structure\Project 1\303_Project1B\Project1B\Date.h(68,1): error C2039: 'next_token': is not a member of 'String_Tokenizer'
-C:\Users\shawn\Desktop\Summer Classes 2020\303 Data Structure\Project 1\303_Project1B\Project1B\StringTokenizer.h(11): message : see declaration of 'String_Tokenizer'
-C:\Users\shawn\Desktop\Summer Classes 2020\303 Data Structure\Project 1\303_Project1B\Project1B\Date.h(71,1): error C2039: 'next_token': is not a member of 'String_Tokenizer'
-C:\Users\shawn\Desktop\Summer Classes 2020\303 Data Structure\Project 1\303_Project1B\Project1B\StringTokenizer.h(11): message : see declaration of 'String_Tokenizer'
-C:\Users\shawn\Desktop\Summer Classes 2020\303 Data Structure\Project 1\303_Project1B\Project1B\Date.h(79,1): error C2039: 'next_token': is not a member of 'String_Tokenizer'
-C:\Users\shawn\Desktop\Summer Classes 2020\303 Data Structure\Project 1\303_Project1B\Project1B\StringTokenizer.h(11): message : see declaration of 'String_Tokenizer'
-C:\Users\shawn\Desktop\Summer Classes 2020\303 Data Structure\Project 1\303_Project1B\Project1B\Date.h(82,1): error C2039: 'next_token': is not a member of 'String_Tokenizer'
-C:\Users\shawn\Desktop\Summer Classes 2020\303 Data Structure\Project 1\303_Project1B\Project1B\StringTokenizer.h(11): message : see declaration of 'String_Tokenizer'
-C:\Users\shawn\Desktop\Summer Classes 2020\303 Data Structure\Project 1\303_Project1B\Project1B\Date.h(85,1): error C2039: 'next_token': is not a member of 'String_Tokenizer'
-C:\Users\shawn\Desktop\Summer Classes 2020\303 Data Structure\Project 1\303_Project1B\Project1B\StringTokenizer.h(11): message : see declaration of 'String_Tokenizer'
+C:\Users\shawn\Desktop\Summer Classes 2020\303 Data Structure\Project 1\303_Project1B\Project1B\Main.cpp(4,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\shawn\Desktop\Summer Classes 2020\303 Data Structure\Project 1\303_Project1B\Project1B\priorityQueue.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  Node.cpp
+  priorityQueue.cpp
+C:\Users\shawn\Desktop\Summer Classes 2020\303 Data Structure\Project 1\303_Project1B\Project1B\priorityQueue.cpp(1,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\shawn\Desktop\Summer Classes 2020\303 Data Structure\Project 1\303_Project1B\Project1B\priorityQueue.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  Generating Code...
+C:\Users\shawn\Desktop\Summer Classes 2020\303 Data Structure\Project 1\303_Project1B\Project1B\Date.h(51): warning C4715: 'Date::toString': not all control paths return a value
+  Project1B.vcxproj -> C:\Users\shawn\Desktop\Summer Classes 2020\303 Data Structure\Project 1\303_Project1B\Project1B\Debug\Project1B.exe

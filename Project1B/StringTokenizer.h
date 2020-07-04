@@ -24,7 +24,7 @@ public:
 	/** Determine if there are more tokens
 	@return true if there are more tokens
 	*/
-	bool String_Tokenizer::has_more_tokens() {
+	bool has_more_tokens() {
 		return start != std::string::npos;
 	}
 
@@ -32,7 +32,7 @@ public:
 	@return the next token. If there are no more
 	tokens, an empty string is returned
 	*/
-	std::string String_Tokenizer::next_token() {
+	std::string next_token() {
 		// Make sure there is a next token
 		if (!has_more_tokens())
 			return "";
@@ -50,7 +50,7 @@ private:
 	/** Position start and end so that start is the index of the start
 	of the next token and end is the end.
 	*/
-	void String_Tokenizer::find_next() {
+	void find_next() {
 		// Find the first character that is not a delimeter
 		/*<snippet id="1" omit="false">*/
 		start = the_source.find_first_not_of(the_delim, end);
