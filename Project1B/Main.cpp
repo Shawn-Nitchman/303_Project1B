@@ -20,16 +20,14 @@ int main() {
 
 	prioQueue test;
 
-	test.insertStart("hi");
-	test.insertStart("hello");
-	test.insertEnd("How are you");
+	test.push("hello");
+	test.push("hi");
 
-	test.tranverse();
+	cout << test.front() <<endl;
 
-	//test.insertAtAnyPoint("what's up", 2);
-	//test.deleteAtAnyPos(3);
-	
-	test.tranverse();
+	test.pop();
+
+	cout << test.front();
 
 	return 0;
 }
