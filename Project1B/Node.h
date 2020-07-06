@@ -1,12 +1,11 @@
 #pragma once
+#include <string>
 
 using namespace std;
 
-template<typename itemType>
-
 struct Node {
 
-	itemType data;
+	string name;
 
 	Node* next;
 };

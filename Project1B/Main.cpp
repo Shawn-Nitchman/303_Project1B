@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 #include "Date.h";
 #include "priorityQueue.h";
@@ -6,6 +7,7 @@
 using namespace std;
 
 int main() {
+	/*
 	Date date_1(2013, 2, 10); //add a date with the US format(mm-dd-yyy). The date is Feb 10, 2013
 	Date date_2(2014, 5, 1); //add a date with the US format(mm-dd-yyy). The date is May 1, 2014
 	Date date_3("5-1-2014"); //add a date with the US format(mm-dd-yyyy), the date is May 1, 2014
@@ -14,6 +16,20 @@ int main() {
 	bool larger = date_1 > date_2; //compare if date_1 > date_2
 	bool equal = date_1 == date_2; //compare if date_1 == date_2
 	string text = date_1.toString(); //conver date_1 to string (the string will be made based on the format
+	*/
+
+	prioQueue test;
+
+	test.insertStart("hi");
+	test.insertStart("hello");
+	test.insertEnd("How are you");
+
+	test.tranverse();
+
+	//test.insertAtAnyPoint("what's up", 2);
+	//test.deleteAtAnyPos(3);
+	
+	test.tranverse();
 
 	return 0;
 }

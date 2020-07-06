@@ -141,7 +141,6 @@
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Node.cpp" />
-    <ClCompile Include="priorityQueue.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Date.h" />
