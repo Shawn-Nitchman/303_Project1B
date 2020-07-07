@@ -143,10 +143,13 @@
     <ClCompile Include="Node.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Date.h" />
+    <ClInclude Include="Library.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="priorityQueue.h" />
     <ClInclude Include="StringTokenizer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\..\..\..\Employees.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
