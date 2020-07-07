@@ -1,165 +1,145 @@
 #pragma once
-#ifndef priorityQueue_H
-#define priorityQueue_H
-#include "Node.h";
-#include <cstddef>
-#include <string>
+#ifndef Library_H
+#define Library_H
+#include "Date.h"
+#include <vector>
+#include <queue>
 
-// created a simple queue
-class prioQueue {
-private:
-	// data that will be used for queue
+using namespace std;
 
-	Node* frontOfQueue;
-	Node* backOfQueue;
-	size_t num_items;
+struct Employee {
+	string name;
+	int waitTime;
+	int retainTime;
+	int prioNum;
+	Date prevDate;
 
+	Employee() {
+		name = "";
+		waitTime = 0;
+		retainTime = 0;
+		prioNum = 0;
+		prevDate = Date(1000, 1, 1, US);
+	}
+
+	Employee(string name, int waitTime = 0, int retainTime = 0) {
+		this->name = name;
+	}
+
+};
+
+struct Book {
+	string name;
+	Date circStart;
+	Date circEnd;
+	bool isArchived;
+	queue<Employee> bookQ;
+
+	Book() {
+		name = "";
+		circStart = Date(1000, 1, 1, US);
+		circEnd = Date(1000, 1, 1, US);
+		isArchived = false;
+	}
+
+	Book(string name, Date circStart, Date circEnd, bool isArchived = false) {
+		this->name = name;
+		this->circStart = circStart;
+		this->circEnd = circEnd;
+	}
+
+};
+
+class Library {
 public:
+	void addBook(string name) {
+		Book B;
+		B.name = name;
 
-	// constructor with member inilizer list setting the front and back of queue as null and number of items as 0
-	prioQueue(Node* frontOfQueue = NULL, Node* backOfQueue = NULL)
-		: frontOfQueue(frontOfQueue), backOfQueue(backOfQueue), num_items(0) {}
+		bookList.push(B);
+	}
 
-	// this method adds a member to the queue at the back of the line. 
-	void push(const string item) {
+	void addEmployee(string name) {
+		Employee E;
+		E.name = name;
 
-		// if no element exist in the queue then it will create the element and assign it to the front
-		if (frontOfQueue == NULL) {
-			backOfQueue = new Node(item, NULL);
-			frontOfQueue = backOfQueue;
+		employeeList.push_back(E);
+	}
+
+	void circulate(string name, Date d) {
+		///BigO=(n*n).
+		if (!bookList.front().isArchived && bookList.front().name == name) { //check if book is archived and have the right book
+
+			bookList.front().circStart = d; //set the circulation date
+
+			for (unsigned int j = 0; j < employeeList.size(); ++j) { //run throug employee list
+
+				bookList.front().bookQ.push(employeeList.at(j)); //push the whole employee list to that one book.
+			}
+			bookList.front().bookQ.front().prevDate = d;
+			bookList.push(bookList.front());
+			bookList.pop();
 		}
-
-		// if there is an elemment then it will add it to the back 
-		else {
-			backOfQueue->next = new Node(item, NULL);
-			backOfQueue = backOfQueue->next;
-		}
-
-		num_items++;
 	}
 
-	// returns the data of the element in front
-	string front() {
-		return frontOfQueue->name;
-	}
-
-	// returns the size of queue
-	int size() {
-		return num_items;
-	}
-
-	// this will delete the front member. it has to assign the front of the queue nexts as the front so the data isn't forgotten then it can delete it
-	void pop() {
-		Node* old_front = frontOfQueue;
-
-		frontOfQueue = frontOfQueue->next;
-		if (frontOfQueue == NULL) {
-			backOfQueue = NULL;
-		}
-
-		delete old_front;
-		num_items--;
-	}
-
-};
-
-
-/*
-namespace CQ {
-
-	template<typename Item_Type>
-	class queue {
-	public:
-		queue() : capacity(DEFAULT_CAPACITY), num_items(0),
-			front_index(0), rear_index(DEFAULT_CAPACITY - 1),
-			the_data(new Item_Type[DEFAULT_CAPACITY]) {}
-
-		queue(size_t capacity) : capacity(capacity), num_items(0),
-			front_index(0), rear_index(capacity - 1),
-			the_data(new Item_Type[capacity]) {}
-
-		// Cost: O(1) (even on average when grows)
-		void push(const Item_Type& item) {
-
-			if (num_items == capacity) {
-					reallocate();
+	void passOn(string name, Date d) {
+		//(O)n^2
+		if (!bookList.empty() && bookList.front().name == name && !bookList.front().bookQ.empty() && !bookList.front().isArchived) {
+			for (unsigned int i = 0; i < employeeList.size(); i++) {
+				if (employeeList.at(i).name == bookList.front().bookQ.front().name) {
+					employeeList.at(i).retainTime += d - bookList.front().bookQ.front().prevDate;
+					employeeList.at(i).prioNum = employeeList.at(i).waitTime - employeeList.at(i).retainTime;
 				}
-
-				num_items++;
-				rear_index = (rear_index + 1) % capacity;
-				the_data[rear_index] = item;
 			}
-
-			Item_Type& front() {
-				return the_data[front_index];
+			bookList.front().bookQ.pop();
+			if (!bookList.front().bookQ.empty()) {
+				for (unsigned int i = 0; i < employeeList.size(); i++) {
+					if (employeeList.at(i).name == bookList.front().bookQ.front().name) {
+						employeeList.at(i).waitTime += d - bookList.front().circStart;
+						bookList.front().bookQ.front().prevDate = d;
+					}
+				}
 			}
-
-			void pop() {
-				front_index = (front_index + 1) % capacity;
-				num_items--;
-
-
-			/*
-			if (num_items == capacity)
-				reallocate();
-
-			int index = 0, i = 0, new_index = 0;
-
-			for (unsigned int i = 0; i < num_items; ++i) {
-				index = (front_index + 1) % capacity;
-				if (item > the_data[index])
-					break;
-			}
-
-			for (unsigned int j = 0; j < num_items - 1; ++j) {
-				index = (rear_index - j) % capacity;
-				new_index = (index + 1) % capacity;
-				the_data[new_index] = the_data[index];
-			}
-
-			num_items++;
-			the_data[(front_index + i) % capacity] = item;
-			rear_index = (rear_index + 1) % capacity;
-
 		}
 
-		Item_Type& front() {
-			return the_data[front_index];
-		}
-
-		void pop() {
-			front_index = (front_index + 1) % capacity;
-			num_items--;
-		}
-
-
-	private:
-		void reallocate() {
-			size_t new_capacity = 2 * capacity;
-			Item_Type* new_data = new Item_Type[new_capacity];
-			size_t j = front_index;
-			for (size_t i = 0; i < num_items; i++) {
-				new_data[i] = the_data[j];
-				j = (j + 1) % capacity;
+		if (!bookList.empty() && bookList.front().bookQ.empty()) {
+			cout << bookList.front().name << " has been archived" << endl << endl;;
+			bookList.front().isArchived = true;
+			bookList.pop();
+			if (!bookList.empty()) {
+				for (unsigned int i = 0; i < employeeList.size(); i++) {
+					for (unsigned int j = employeeList.size() - 1; j > i; j--) {
+						if (employeeList.at(i).prioNum < employeeList.at(j).prioNum) {
+							swap(employeeList.at(i), employeeList.at(j));
+						}
+					}
+				}
+				if (!bookList.front().bookQ.empty()) {
+					Date a = bookList.front().bookQ.front().prevDate;
+					for (int i = 0; i < employeeList.size(); i++) {
+						bookList.front().bookQ.pop();
+						bookList.front().bookQ.push(employeeList.at(i));
+					}
+					bookList.front().bookQ.front().prevDate = a;
+				}
 			}
-			front_index = 0;
-			rear_index = num_items - 1;
-			capacity = new_capacity;
-			std::swap(the_data, new_data);
-			delete[] new_data;
 		}
+	}
 
+	void getStats() {
+		cout << "Name, Retain, Wait, Prio" << endl;
+		for (unsigned int i = 0; i < employeeList.size(); i++) {
+			cout << employeeList.at(i).name << " " << employeeList.at(i).retainTime << " " << employeeList.at(i).waitTime << " " << employeeList.at(i).prioNum << endl;
+		}
+		cout << endl;
+	}
 
-		// Data fields
-		static const size_t DEFAULT_CAPACITY = 10;
-		size_t capacity;
-		size_t num_items;
-		size_t front_index;
-		size_t rear_index;
-		Item_Type* the_data;
-	};
-
+private:
+	int waitTime;
+	queue<Book> bookList;
+	vector<Employee> employeeList;
 };
-*/
+
+
 
 #endif 

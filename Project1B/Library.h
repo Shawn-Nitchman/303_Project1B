@@ -77,42 +77,50 @@ public:
 				bookList.front().bookQ.push(employeeList.at(j)); //push the whole employee list to that one book.
 			}
 			bookList.front().bookQ.front().prevDate = d;
+			bookList.push(bookList.front());
+			bookList.pop();
 		}
 	}
 
 	void passOn(string name, Date d) {
 		//(O)n^2
-		for (unsigned int i = 0; i < bookList.size(); ++i) {
-			if (bookList.front().name == name && !bookList.front().bookQ.empty()) {
-				for (unsigned int j = 0; j < employeeList.size(); ++j) { // sets employeeList info
-					if (bookList.front().bookQ.front().name == employeeList.at(j).name) {
+		if (!bookList.empty() && bookList.front().name == name && !bookList.front().bookQ.empty() && !bookList.front().isArchived) {
+			for (unsigned int i = 0; i < employeeList.size(); i++) {
+				if (employeeList.at(i).name == bookList.front().bookQ.front().name) {
+					employeeList.at(i).retainTime += d - bookList.front().bookQ.front().prevDate;
+					employeeList.at(i).prioNum = employeeList.at(i).waitTime - employeeList.at(i).retainTime;
+				}
+			}
+			bookList.front().bookQ.pop();
+			if (!bookList.front().bookQ.empty()) {
+				for (unsigned int i = 0; i < employeeList.size(); i++) {
+					if (employeeList.at(i).name == bookList.front().bookQ.front().name) {
+						employeeList.at(i).waitTime += d - bookList.front().circStart;
+						bookList.front().bookQ.front().prevDate = d;
+					}
+				}
+			}
+		}
 
-						employeeList.at(j).retainTime += d - bookList.front().bookQ.front().prevDate;
-						employeeList.at(j).prioNum = employeeList.at(j).waitTime - employeeList.at(j).retainTime;
-						bookList.front().bookQ.pop();
-						if (bookList.front().bookQ.front().name == employeeList.at(j).name) {
-							employeeList.at(j).waitTime += d - bookList.front().circStart;
+		if (!bookList.empty() && bookList.front().bookQ.empty()) {
+			cout << bookList.front().name << " has been archived" << endl << endl;;
+			bookList.front().isArchived = true;
+			bookList.pop();
+			if (!bookList.empty()) {
+				for (unsigned int i = 0; i < employeeList.size()S; i++) {
+					for (unsigned int j = employeeList.size() - 1; j > i; j--) {
+						if (employeeList.at(i).prioNum < employeeList.at(j).prioNum) {
+							swap(employeeList.at(i), employeeList.at(j));
 						}
 					}
 				}
-				/*bookList.front().bookQ.pop();
 				if (!bookList.front().bookQ.empty()) {
-					bookList.front().bookQ.front().prevDate = d;
-				}*/
-			}
-
-			else if (bookList.front().bookQ.empty()) {
-				bookList.front().isArchived = true;
-				bookList.pop();
-				if (!bookList.empty()) {
-					for (unsigned int i = 0; i < employeeList.size(); i++) {
-						for (unsigned int j = employeeList.size() - 1; j > i; j--) {
-							if (employeeList.at(i).prioNum < employeeList.at(j).prioNum) {
-								swap(employeeList.at(i), employeeList.at(j));
-							}
-						}
+					Date a = bookList.front().bookQ.front().prevDate;
+					for (int i = 0; i < employeeList.size(); i++) {
+						bookList.front().bookQ.pop();
 						bookList.front().bookQ.push(employeeList.at(i));
 					}
+					bookList.front().bookQ.front().prevDate = a;
 				}
 			}
 		}
@@ -132,20 +140,4 @@ private:
 	vector<Employee> employeeList;
 };
 
-/*
-
-(Weight: 20%) Makea data structure (priority queue) that allows the pushing and popping of items.
-The popped item is the item with the highest priority.
-The queue should also be updatable whenever an item’s priority changes.
-•The more the employee waited, the higher the priority. The more she retained a book, the lower the priority.
-To put it simply, the priority is: waiting_time –retaining_time.The employee in front of the queue gets the book.
-•(Weight: 40%) The system should allow the employee to pass the book on to the next employee on the queue on a given date.
-•Passing on the book has the following outcome:
-If the employee who is passing on the book is the last in the queue, the book gets archived.
-The total retaining time for the employee who passed on the book gets adjusted.
-The total waiting time for the employee who got the book gets adjusted.
-If there are other queues for other books, and these queues contain the employee who passed on the book and the employee who got the book, then adjust these queues (because the priorities have changed).
-
-
-*/
 #endif

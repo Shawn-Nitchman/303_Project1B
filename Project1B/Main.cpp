@@ -20,20 +20,22 @@ int main() {
 
 
 	x.circulate("GEAH", Date(2020, 7, 7, US));
-	//x.circulate("red fish, blue fish", Date(2020, 8, 9, US));
+	x.circulate("red fish, blue fish", Date(2020, 8, 9, US));
 
 	cout << "Green Eggs and Ham" << endl;
+	cout << "___________________________________" << endl;
 	x.getStats();
 	x.passOn("GEAH", Date(2020, 7, 10, US));
 	x.getStats();
-	/*x.passOn("GEAH", Date(2020, 7, 12, US));
+	x.passOn("GEAH", Date(2020, 7, 12, US));
 	x.getStats();
 	x.passOn("GEAH", Date(2020, 7, 20, US));
 	x.getStats();
-	x.passOn("GEAH", Date(2020, 7, 21, US));
-	x.getStats();*/
+	//x.passOn("GEAH", Date(2020, 7, 21, US));
+	//x.getStats();
 
-	/*cout << "red fish, blue fish" << endl;
+	cout << "red fish, blue fish" << endl;
+	cout << "___________________________________" << endl;
 	x.getStats();
 	x.passOn("red fish, blue fish", Date(2020, 8, 10, US));
 	x.getStats();
@@ -42,9 +44,8 @@ int main() {
 	x.passOn("red fish, blue fish", Date(2020, 8, 25, US));
 	x.getStats();
 	x.passOn("red fish, blue fish", Date(2020, 8, 29, US));
-	x.getStats();*/
+	x.getStats();
 
 
 	return 0;
 }
-
