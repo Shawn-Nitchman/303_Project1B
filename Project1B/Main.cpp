@@ -18,17 +18,16 @@ int main() {
 	string text = date_1.toString(); //conver date_1 to string (the string will be made based on the format
 	*/
 
-	prioQueue test;
+	CQ::queue<string> cir_queue;
+	cir_queue.push("A");
+	cir_queue.push("B");
+	cir_queue.push("C");
+	cir_queue.push("D");
+	cir_queue.push("E");
+	cir_queue.pop();
+	cir_queue.push("F");
+	cir_queue.push("G");
 
-	test.push("hello");
-	test.push("what's up");
-	test.push("hi");
-
-	cout << test.front() <<endl;
-
-	test.pop();
-
-	cout << test.front();
 
 	return 0;
 }
