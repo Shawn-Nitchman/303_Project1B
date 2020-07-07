@@ -61,12 +61,36 @@ public:
 		employeeList.push_back(E);
 	}
 
-	void circulate(string name, Date d) {
+	bool circulate(string name, Date d) {
+		///BigO=(n*n).
+		for (int i = 0; i < bookList.size(); ++i) { //go through list of books/
+
+			if (!bookList.at(i).isArchived && bookList.at(i).name == name) { //check if book is archived and have the right book
+
+				bookList.at(i).circStart = d; //set the circulation date
+
+				for (int j = 0; j < employeeList.size(); ++j) { //run throug employee lits
+
+					bookList.at(i).bookQ.push(employeeList.at(j)); //push the whole employee list to that one book.
+				}
+			}
+		}
+		return true;
+
 
 	}
 
 	void passOn(string name, Date d) {
+		for (int i = 0; i < bookList.size(); ++i) {
+			if (bookList.at(i).name == name && circulate(name, bookList.at(i).circStart)) {
+				bookList.at(i).bookQ.front().passDate = d;
+				bookList.at(i).bookQ.push(bookList.at(i).bookQ.front());
+				bookList.at(i).bookQ.pop();
+				bookList.at(i).bookQ.front().retainTime = d - bookList.at(i).bookQ.front().passDate;
+				bookList.at(i).bookQ.front().waitTime = d - bookList.at(i).circStart;
+			}
 
+		}
 	}
 
 	int getSize() {
