@@ -1,8 +1,8 @@
 #include <iostream>
 #include <string>
 
-#include "Date.h";
-#include "priorityQueue.h";
+#include "Date.h"
+#include "priorityQueue.h"
 
 using namespace std;
 

@@ -1,7 +1,7 @@
 #pragma once
 #ifndef priorityQueue_H
 #define priorityQueue_H
-#include "Node.h";
+#include "Node.h"
 #include <cstddef>
 #include <string>
 
@@ -20,26 +20,28 @@ namespace CQ {
 
 		// Cost: O(1) (even on average when grows)
 		void push(const Item_Type& item) {
+			/*
 			if (num_items == capacity)
 				reallocate();
 
-			int index = 0; i = 0, new_index = 0;
+			int index = 0, i = 0, new_index = 0;
 
-			for (i = 0; i < num_items; ++i) {
+			for (unsigned int i = 0; i < num_items; ++i) {
 				index = (front_index + 1) % capacity;
 				if (item > the_data[index])
 					break;
 			}
 
-			for (int j = 0; j < num_items - 1; ++j) {
-				index = (back_index - j) % capacity;
+			for (unsigned int j = 0; j < num_items - 1; ++j) {
+				index = (rear_index - j) % capacity;
 				new_index = (index + 1) % capacity;
 				the_data[new_index] = the_data[index];
 			}
 
 			num_items++;
 			the_data[(front_index + i) % capacity] = item;
-			back_index = (back_index + 1) % capacity;
+			rear_index = (rear_index + 1) % capacity;
+			*/
 		}
 
 		Item_Type& front() {
