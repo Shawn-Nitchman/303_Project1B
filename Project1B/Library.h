@@ -11,11 +11,15 @@ struct Employee {
 	string name;
 	int waitTime;
 	int retainTime;
+	int prioNum;
+	Date prevDate;
 
 	Employee() {
 		name = "";
 		waitTime = 0;
 		retainTime = 0;
+		prioNum = 0;
+		prevDate = Date(1000, 1, 1, US);
 	}
 
 	Employee(string name, int waitTime = 0, int retainTime = 0) {
@@ -33,8 +37,8 @@ struct Book {
 
 	Book() {
 		name = "";
-		circStart = Date(0, 0, 0, DateFormat::US);
-		circEnd = Date(0, 0, 0, DateFormat::US);
+		circStart = Date(1000, 1, 1, US);
+		circEnd = Date(1000, 1, 1, US);
 		isArchived = false;
 	}
 
@@ -48,71 +52,87 @@ struct Book {
 
 class Library {
 public:
-	void addBook(string name, Date circStart, Book B) {
+	void addBook(string name) {
+		Book B;
 		B.name = name;
-		B.circStart = circStart;
 
-		bookList.push_back(B);
+		bookList.push(B);
 	}
 
-	void addEmployee(string name, Employee E) {
+	void addEmployee(string name) {
+		Employee E;
 		E.name = name;
 
 		employeeList.push_back(E);
 	}
 
-	bool circulate(string name, Date d) {
+	void circulate(string name, Date d) {
 		///BigO=(n*n).
-		for (int i = 0; i < bookList.size(); ++i) { //go through list of books/
+		if (!bookList.front().isArchived && bookList.front().name == name) { //check if book is archived and have the right book
 
-			if (!bookList.at(i).isArchived && bookList.at(i).name == name) { //check if book is archived and have the right book
+			bookList.front().circStart = d; //set the circulation date
 
-				bookList.at(i).circStart = d; //set the circulation date
+			for (unsigned int j = 0; j < employeeList.size(); ++j) { //run throug employee list
 
-				for (int j = 0; j < employeeList.size(); ++j) { //run throug employee lits
-
-					bookList.at(i).bookQ.push(employeeList.at(j)); //push the whole employee list to that one book.
-				}
+				bookList.front().bookQ.push(employeeList.at(j)); //push the whole employee list to that one book.
 			}
+			bookList.front().bookQ.front().prevDate = d;
 		}
-		return true;
-
-
 	}
 
 	void passOn(string name, Date d) {
-		for (int i = 0; i < bookList.size(); ++i) {
-			if (bookList.at(i).name == name && circulate(name, bookList.at(i).circStart)) {
-				bookList.at(i).bookQ.front().passDate = d;
-				bookList.at(i).bookQ.push(bookList.at(i).bookQ.front());
-				bookList.at(i).bookQ.pop();
-				bookList.at(i).bookQ.front().retainTime = d - bookList.at(i).bookQ.front().passDate;
-				bookList.at(i).bookQ.front().waitTime = d - bookList.at(i).circStart;
+		//(O)n^2
+		for (unsigned int i = 0; i < bookList.size(); ++i) {
+			if (bookList.front().name == name && !bookList.front().bookQ.empty()) {
+				for (unsigned int j = 0; j < employeeList.size(); ++j) { // sets employeeList info
+					if (bookList.front().bookQ.front().name == employeeList.at(j).name) {
+
+						employeeList.at(j).retainTime += d - bookList.front().bookQ.front().prevDate;
+						employeeList.at(j).prioNum = employeeList.at(j).waitTime - employeeList.at(j).retainTime;
+						bookList.front().bookQ.pop();
+						if (bookList.front().bookQ.front().name == employeeList.at(j).name) {
+							employeeList.at(j).waitTime += d - bookList.front().circStart;
+						}
+					}
+				}
+				/*bookList.front().bookQ.pop();
+				if (!bookList.front().bookQ.empty()) {
+					bookList.front().bookQ.front().prevDate = d;
+				}*/
 			}
 
+			else if (bookList.front().bookQ.empty()) {
+				bookList.front().isArchived = true;
+				bookList.pop();
+				if (!bookList.empty()) {
+					for (unsigned int i = 0; i < employeeList.size(); i++) {
+						for (unsigned int j = employeeList.size() - 1; j > i; j--) {
+							if (employeeList.at(i).prioNum < employeeList.at(j).prioNum) {
+								swap(employeeList.at(i), employeeList.at(j));
+							}
+						}
+						bookList.front().bookQ.push(employeeList.at(i));
+					}
+				}
+			}
 		}
 	}
 
-	int getSize() {
-		return employeeList.size();
+	void getStats() {
+		cout << "Name, Retain, Wait, Prio" << endl;
+		for (unsigned int i = 0; i < employeeList.size(); i++) {
+			cout << employeeList.at(i).name << " " << employeeList.at(i).retainTime << " " << employeeList.at(i).waitTime << " " << employeeList.at(i).prioNum << endl;
+		}
+		cout << endl;
 	}
 
 private:
 	int waitTime;
-	vector<Book> bookList;
+	queue<Book> bookList;
 	vector<Employee> employeeList;
 };
 
 /*
-
-map<int, int> x;
-int size = employeeList.size();
-for (int i = 0; i < size; i++) {
-
-	}
-
-
-
 
 (Weight: 20%) Makea data structure (priority queue) that allows the pushing and popping of items.
 The popped item is the item with the highest priority.
@@ -125,11 +145,6 @@ If the employee who is passing on the book is the last in the queue, the book ge
 The total retaining time for the employee who passed on the book gets adjusted.
 The total waiting time for the employee who got the book gets adjusted.
 If there are other queues for other books, and these queues contain the employee who passed on the book and the employee who got the book, then adjust these queues (because the priorities have changed).
-See Figure 1 for an illustration.
-
-
-
-
 
 
 */

@@ -9,62 +9,42 @@ using namespace std;
 
 int main() {
 
-	/*Employee E("Eric", 1);
-	Employee A("Aaron", 2);
-	Employee I("Isabelle", 3);
-	Employee O("Orion", 4);
+	Library x;
 
-	vector<Employee> vectorE;
-	vectorE.push_back(E);
-	vectorE.push_back(A);
-	vectorE.push_back(I);
-	vectorE.push_back(O);
+	x.addBook("GEAH");
+	x.addBook("red fish, blue fish");
 
-	map<int, int> x;
-	int size = 4;
-	for (int i = 0; i < size; i++) {
-		x.emplace(vectorE.at(i), vectorE.at(i).retainTime);
-	}
-
-	for (auto const& y : x) {
-		cout << y.first << endl;
-	}*/
+	x.addEmployee("James");
+	x.addEmployee("Tim");
+	x.addEmployee("Shawn");
 
 
-	/*Date a, b;
-	a = Date(2020, 1, 1, US);
-	b = Date(2020, 1, 5, US);
-	cout << b - a << endl;
+	x.circulate("GEAH", Date(2020, 7, 7, US));
+	//x.circulate("red fish, blue fish", Date(2020, 8, 9, US));
 
-	a.add_days(400000000);
-	cout << a.getMonth() << " " << a.getDay() << " " << a.getYear() << endl;*/
+	cout << "Green Eggs and Ham" << endl;
+	x.getStats();
+	x.passOn("GEAH", Date(2020, 7, 10, US));
+	x.getStats();
+	/*x.passOn("GEAH", Date(2020, 7, 12, US));
+	x.getStats();
+	x.passOn("GEAH", Date(2020, 7, 20, US));
+	x.getStats();
+	x.passOn("GEAH", Date(2020, 7, 21, US));
+	x.getStats();*/
 
-	queue<string> names;
-	names.push("Rich");
-	names.push("Debbie");
-	names.push("Robin");
-	names.push("Dustin");
-	names.push("Jonathan");
+	/*cout << "red fish, blue fish" << endl;
+	x.getStats();
+	x.passOn("red fish, blue fish", Date(2020, 8, 10, US));
+	x.getStats();
+	x.passOn("red fish, blue fish", Date(2020, 8, 12, US));
+	x.getStats();
+	x.passOn("red fish, blue fish", Date(2020, 8, 25, US));
+	x.getStats();
+	x.passOn("red fish, blue fish", Date(2020, 8, 29, US));
+	x.getStats();*/
 
-	int temp = names.size();
-	for (int i = 0; i < temp; i++) {
-		cout << names.front() << " ";
-		names.pop();
-	}
+
 	return 0;
 }
-
-
-
-
-/*
-	Date date_1(2013, 2, 10); //add a date with the US format(mm-dd-yyy). The date is Feb 10, 2013
-	Date date_2(2014, 5, 1); //add a date with the US format(mm-dd-yyy). The date is May 1, 2014
-	Date date_3("5-1-2014"); //add a date with the US format(mm-dd-yyyy), the date is May 1, 2014
-	Date date_4("2014-5-1", DateFormat::Standard); //add a date with the standard format(yyyy-mm--dd), the date is May 1, 2014
-	date_1.add_days(5); //add 5 days to date_1
-	bool larger = date_1 > date_2; //compare if date_1 > date_2
-	bool equal = date_1 == date_2; //compare if date_1 == date_2
-	string text = date_1.toString(); //conver date_1 to string (the string will be made based on the format
-	*/
 
