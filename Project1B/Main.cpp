@@ -21,6 +21,7 @@ int main() {
 	prioQueue test;
 
 	test.push("hello");
+	test.push("what's up");
 	test.push("hi");
 
 	cout << test.front() <<endl;
