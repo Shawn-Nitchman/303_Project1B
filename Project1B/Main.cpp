@@ -1,7 +1,5 @@
+//Program by James Ta, Shawn Nitchman, Timothy Hoang
 #include <iostream>
-#include <string>
-#include <map>
-#include <vector>
 #include "priorityQueue.h"
 #include "Library.h"
 
@@ -22,8 +20,7 @@ int main() {
 	x.circulate("GEAH", Date(2020, 7, 7, US));
 	x.circulate("red fish, blue fish", Date(2020, 8, 9, US));
 
-	cout << "Green Eggs and Ham" << endl;
-	cout << "___________________________________" << endl;
+	cout << "Green Eggs and Ham" << endl << endl;
 	x.getStats();
 	x.passOn("GEAH", Date(2020, 7, 10, US));
 	x.getStats();
@@ -31,11 +28,8 @@ int main() {
 	x.getStats();
 	x.passOn("GEAH", Date(2020, 7, 20, US));
 	x.getStats();
-	//x.passOn("GEAH", Date(2020, 7, 21, US));
-	//x.getStats();
 
-	cout << "red fish, blue fish" << endl;
-	cout << "___________________________________" << endl;
+	cout << "red fish, blue fish" << endl << endl;
 	x.getStats();
 	x.passOn("red fish, blue fish", Date(2020, 8, 10, US));
 	x.getStats();
